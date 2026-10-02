@@ -13,5 +13,10 @@
   "median_sold_price": 365000.0,
   "aggregate_sale_to_list_percentage": 98.9005,
   "median_closed_dom": 17.0,
-  "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales."
+  "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales.",
+  "latest_complete_month": "2026-09",
+  "latest_month_closed_sales": 0,
+  "latest_month_median_sold_price": null,
+  "latest_month_sale_to_list_percentage": null,
+  "latest_month_median_closed_dom": null
 }
