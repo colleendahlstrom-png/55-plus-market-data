@@ -13,46 +13,5 @@
   "median_sold_price": 365000.0,
   "aggregate_sale_to_list_percentage": 98.9005,
   "median_closed_dom": 17.0,
-  "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales.",
-  "sale_to_list_denominator_field": "Orig List Pr",
-  "total_closed_sold_price": 8059900.0,
-  "total_closed_list_price": 8056500.0,
-  "total_closed_original_list_price": 8149500.0,
-  "included_mls_numbers": {
-    "active": [
-      "12709061",
-      "12764814",
-      "12740268"
-    ],
-    "pending": [
-      "12750718",
-      "12696514",
-      "12752919",
-      "12724717"
-    ],
-    "closed": [
-      "12622604",
-      "12575983",
-      "12584340",
-      "12497842",
-      "12506670",
-      "12629500",
-      "12598294",
-      "12525579",
-      "12441946",
-      "12574976",
-      "12477019",
-      "12417251",
-      "12642313",
-      "12566562",
-      "12378012",
-      "12660594",
-      "12652373",
-      "12709838",
-      "12615459",
-      "12648261",
-      "12491960"
-    ]
-  },
-  "warnings": []
+  "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales."
 }
