@@ -18,5 +18,91 @@
   "latest_month_closed_sales": 2,
   "latest_month_median_sold_price": 325000.0,
   "latest_month_sale_to_list_percentage": 99.3884,
-  "latest_month_median_closed_dom": 82.5
+  "latest_month_median_closed_dom": 82.5,
+  "monthly_history": [
+    {
+      "month": "2025-10",
+      "closed_sales": 1,
+      "median_sold_price": 310000.0,
+      "sale_to_original_list_percentage": 103.3678,
+      "median_closed_dom": 23.0
+    },
+    {
+      "month": "2025-11",
+      "closed_sales": 1,
+      "median_sold_price": 389900.0,
+      "sale_to_original_list_percentage": 100.0,
+      "median_closed_dom": 50.0
+    },
+    {
+      "month": "2025-12",
+      "closed_sales": 5,
+      "median_sold_price": 305000.0,
+      "sale_to_original_list_percentage": 89.7656,
+      "median_closed_dom": 52.0
+    },
+    {
+      "month": "2026-01",
+      "closed_sales": 3,
+      "median_sold_price": 232000.0,
+      "sale_to_original_list_percentage": 93.5044,
+      "median_closed_dom": 107.0
+    },
+    {
+      "month": "2026-02",
+      "closed_sales": 1,
+      "median_sold_price": 385000.0,
+      "sale_to_original_list_percentage": 98.7433,
+      "median_closed_dom": 4.0
+    },
+    {
+      "month": "2026-03",
+      "closed_sales": 4,
+      "median_sold_price": 324964.5,
+      "sale_to_original_list_percentage": 99.419,
+      "median_closed_dom": 19.5
+    },
+    {
+      "month": "2026-04",
+      "closed_sales": 5,
+      "median_sold_price": 315000.0,
+      "sale_to_original_list_percentage": 98.0172,
+      "median_closed_dom": 17.0
+    },
+    {
+      "month": "2026-05",
+      "closed_sales": 4,
+      "median_sold_price": 311000.0,
+      "sale_to_original_list_percentage": 94.5531,
+      "median_closed_dom": 45.0
+    },
+    {
+      "month": "2026-06",
+      "closed_sales": 3,
+      "median_sold_price": 314900.0,
+      "sale_to_original_list_percentage": 98.9577,
+      "median_closed_dom": 81.0
+    },
+    {
+      "month": "2026-07",
+      "closed_sales": 5,
+      "median_sold_price": 381000.0,
+      "sale_to_original_list_percentage": 94.9656,
+      "median_closed_dom": 53.0
+    },
+    {
+      "month": "2026-08",
+      "closed_sales": 4,
+      "median_sold_price": 327500.0,
+      "sale_to_original_list_percentage": 98.1827,
+      "median_closed_dom": 34.5
+    },
+    {
+      "month": "2026-09",
+      "closed_sales": 2,
+      "median_sold_price": 325000.0,
+      "sale_to_original_list_percentage": 99.3884,
+      "median_closed_dom": 82.5
+    }
+  ]
 }
