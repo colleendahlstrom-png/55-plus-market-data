@@ -1,0 +1,38 @@
+{
+  "rules_confirmed": true,
+  "input_files": {
+    "inventory": "MRED MLS Active Pending Data.xlsx",
+    "closed": "MRED Closed Data - Past 12 Mths.xlsx"
+  },
+  "columns": {
+    "community": "Subdivision",
+    "mls": "MLS #",
+    "status": "Stat",
+    "dom": "MT",
+    "closed_date": "Closed Date",
+    "list_price": "List Price",
+    "sold_price": "Sold Pr",
+    "street_number": "Street #",
+    "street_name": "Str Name",
+    "street_suffix": "Sfx",
+    "unit": "Unit #",
+    "city": "City"
+  },
+  "closed_columns": {
+    "original_list_price": "Orig List Pr"
+  },
+  "statuses": {
+    "active": ["ACTV", "NEW", "PCHG"],
+    "pending": ["A/I", "PEND", "HC24", "HC48", "HS48", "FIN", "SS"],
+    "closed": ["CLSD"]
+  },
+  "communities": [
+    {"name": "Carillon", "slug": "carillon", "city": "Plainfield", "subdivisions": ["Carillon"]},
+    {"name": "Carillon Club", "slug": "carillon-club", "city": "Naperville", "subdivisions": ["Carillon Club"]},
+    {"name": "Shorewood Glen", "slug": "shorewood-glen", "city": "Shorewood", "subdivisions": ["Shorewood Glen Del Webb"]},
+    {"name": "Carillon Lakes", "slug": "carillon-lakes", "city": "Crest Hill", "subdivisions": ["Carillon Lakes"]},
+    {"name": "Grand Haven", "slug": "grand-haven", "city": "Romeoville", "subdivisions": ["Grand Haven"]},
+    {"name": "Lincoln Prairie", "slug": "lincoln-prairie", "city": "Aurora", "subdivisions": ["Lincoln Prairie"]},
+    {"name": "Lago Vista", "slug": "lago-vista", "city": "Lockport", "subdivisions": ["Lago Vista"]}
+  ]
+}

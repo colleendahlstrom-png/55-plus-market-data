@@ -1,0 +1,9 @@
+# Only community summaries from Output are intended for public publication.
+/Input/
+/Archive/
+/Output/*
+!/Output/communities/
+/.verification/
+/Logs/
+__pycache__/
+*.pyc
