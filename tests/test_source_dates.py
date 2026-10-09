@@ -98,6 +98,96 @@ class SourceDateTests(unittest.TestCase):
             inventory_update.run_inventory_update(self.root, date(2026, 9, 30))
         self.assertEqual(self.public(), before)
 
+    def test_daily_never_reads_archive_audit_closed_source_or_run_info(self):
+        before = self.public()
+        real_open = Path.open
+        blocked = [self.root / 'Archive', self.output / 'audit']
+        closed = self.inputs / self.settings['input_files']['closed']
+        def guarded_open(path, *args, **kwargs):
+            if path == closed or path == self.output / 'run_info.json' or any(path.is_relative_to(p) for p in blocked):
+                raise AssertionError('Protected file accessed: ' + str(path))
+            return real_open(path, *args, **kwargs)
+        # An inaccessible old recovery file must not be read, changed or published.
+        old = self.output / 'communities' / 'carillon-old.json'
+        old.write_text('protected old copy')
+        with patch.object(Path, 'open', guarded_open), \
+             patch.object(engine, 'run', side_effect=AssertionError('Monthly workflow forbidden')):
+            inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
+        self.assertEqual(old.read_text(), 'protected old copy')
+        for name in before:
+            row = json.loads((self.output / 'communities' / name).read_text())
+            self.assertEqual({k: v for k, v in row.items() if k not in inventory_update.INVENTORY_FIELDS},
+                             {k: v for k, v in before[name].items() if k not in inventory_update.INVENTORY_FIELDS})
+
+    def test_daily_blocks_writes_outside_seven_files(self):
+        original_load = engine.load_rows
+        targets = [self.root / 'Archive' / 'market_history.xlsx', self.inputs / self.settings['input_files']['closed'],
+                   self.output / 'audit' / 'communities' / 'carillon.json', self.root / 'settings.json',
+                   self.output / 'communities' / 'unexpected.json']
+        before = self.public()
+        for target in targets:
+            previous = target.read_bytes() if target.exists() else None
+            def attempt(path, columns):
+                target.write_bytes(b'forbidden')
+                return original_load(path, columns)
+            with self.subTest(target=target), patch.object(engine, 'load_rows', side_effect=attempt):
+                with self.assertRaises(engine.ReportError):
+                    inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
+            self.assertEqual(target.read_bytes() if target.exists() else None, previous)
+            self.assertEqual(self.public(), before)
+
+    def test_daily_rejects_hardlinked_target(self):
+        import os
+        target = self.output / 'communities' / 'carillon.json'
+        os.link(target, self.root / 'linked.json')
+        with self.assertRaises(engine.ReportError):
+            inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
+
+    def test_daily_blocks_nested_metric_mutation_before_writing(self):
+        before = self.public()
+        real_preserved = inventory_update._preserved
+        def corrupt(old, new):
+            new['monthly_history'][0]['closed_sales'] = 999
+            return real_preserved(old, new)
+        with patch.object(inventory_update, '_preserved', side_effect=corrupt):
+            with self.assertRaisesRegex(engine.ReportError, 'protected field'):
+                inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
+        self.assertEqual(self.public(), before)
+
+    def test_daily_failed_write_rolls_back_only_attempted_json(self):
+        before = self.public()
+        real_write = Path.write_bytes
+        attempts = []
+        def fail_once(path, data):
+            attempts.append(path)
+            if len(attempts) == 2:
+                raise OSError('Simulated write failure')
+            return real_write(path, data)
+        with patch.object(Path, 'write_bytes', fail_once):
+            with self.assertRaisesRegex(OSError, 'Simulated'):
+                inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
+        self.assertEqual(self.public(), before)
+        self.assertTrue(all(p.parent == self.output / 'communities' for p in attempts))
+
+    def test_daily_blocks_rename_and_delete(self):
+        target = self.output / 'communities' / 'carillon.json'
+        before = target.read_bytes()
+        for operation in (lambda: target.unlink(), lambda: target.rename(self.root / 'moved.json')):
+            def attempt(path, columns):
+                operation()
+            with patch.object(engine, 'load_rows', side_effect=attempt), self.assertRaises(engine.ReportError):
+                inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
+            self.assertEqual(target.read_bytes(), before)
+            self.assertFalse((self.root / 'moved.json').exists())
+
+    def test_daily_rejects_unapproved_configured_filename(self):
+        self.settings['communities'][0]['slug'] = '../../Archive/market_history'
+        self.config.write_text(json.dumps(self.settings))
+        before = self.public()
+        with self.assertRaisesRegex(engine.ReportError, 'seven approved'):
+            inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
+        self.assertEqual(self.public(), before)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -60,15 +60,26 @@ def validate_public_json(project_root, output, metadata):
     reject_link(folder)
     if set(p.name for p in folder.iterdir()) != set(COMMUNITIES):
         raise PublicationError('Expected exactly the seven approved public JSON files.')
-    day = date.fromisoformat(metadata['report_date'])
-    payloads, reports = {}, {}
-    counts = ('active_listings', 'pending_contingent_fin_listings', 'closed_sales_12_months', 'latest_month_closed_sales')
-    for name, (community, city) in COMMUNITIES.items():
+    payloads = {}
+    for name in COMMUNITIES:
         path = folder / name
         reject_link(path)
         if not path.is_file() or path.stat().st_nlink != 1 or path.stat().st_size > 16384:
             raise PublicationError('Public files must be small regular files without hard links.')
-        text = path.read_text(encoding='utf-8')
+        payloads[name] = path.read_text(encoding='utf-8')
+    return validate_public_payloads(payloads, metadata)
+
+
+def validate_public_payloads(payloads, metadata):
+    """Validate the exact public payload in memory, without filesystem access."""
+    import market_report as engine
+    if set(payloads) != set(COMMUNITIES):
+        raise PublicationError('Expected exactly the seven approved public JSON files.')
+    day = date.fromisoformat(metadata['report_date'])
+    reports = {}
+    counts = ('active_listings', 'pending_contingent_fin_listings', 'closed_sales_12_months', 'latest_month_closed_sales')
+    for name, (community, city) in COMMUNITIES.items():
+        text = payloads[name]
         row = strict_json(text)
         if not isinstance(row, dict) or set(row) != set(engine.PUBLIC_COMMUNITY_FIELDS):
             raise PublicationError(f'{name}: public JSON must have exactly the approved 23 fields.')
@@ -103,7 +114,6 @@ def validate_public_json(project_root, output, metadata):
                     raise PublicationError(f'{name}: invalid market metric.')
                 elif ('price' in key or 'percentage' in key) and value == 0:
                     raise PublicationError(f'{name}: invalid price or percentage.')
-        payloads[name] = text
         reports[name] = row
     return payloads, reports
 
