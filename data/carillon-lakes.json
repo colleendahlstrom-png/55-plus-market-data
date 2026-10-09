@@ -5,9 +5,9 @@
   "report_date": "2026-10-01",
   "closed_period_start": "2025-10-01",
   "closed_period_end": "2026-09-30",
-  "active_listings": 7,
-  "median_active_list_price": 321900.0,
-  "average_active_dom": 32.71,
+  "active_listings": 8,
+  "median_active_list_price": 322950.0,
+  "average_active_dom": 32.25,
   "pending_contingent_fin_listings": 3,
   "closed_sales_12_months": 53,
   "median_sold_price": 315000.0,
@@ -105,6 +105,6 @@
       "median_closed_dom": 9.5
     }
   ],
-  "inventory_updated": "2026-10-07",
+  "inventory_updated": "2026-10-09",
   "closed_sales_through": "2026-09-30"
 }
