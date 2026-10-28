@@ -44,11 +44,30 @@ class ReportingTests(unittest.TestCase):
                  self.row("d", "ACTV", "Carillon", "Aurora"),
                  self.row("e", "ACTV", "Shorewood Glen Del Webb", "Shorewood")]
         buckets, review = report.classify({"inventory": rows}, self.settings, date(2026, 10, 1))
-        self.assertEqual(len(buckets["carillon"]["pending"]), 7)
+        self.assertEqual(len(buckets["carillon"]["pending"]), 8)
         self.assertEqual(len(buckets["carillon"]["active"]), 2)
         self.assertEqual(len(buckets["carillon-club"]["active"]), 1)
         self.assertEqual(len(buckets["shorewood-glen"]["active"]), 1)
         self.assertEqual(sum(r["disposition"] != "included" for r in review), 1)
+
+    def test_ctgo_counts_only_as_pending_not_active_metrics(self):
+        self.check_contingency_metrics('CTGO')
+
+    def check_contingency_metrics(self, status):
+        self.assertIn(status, self.settings['statuses']['pending'])
+        self.assertNotIn(status, self.settings['statuses']['active'])
+        active = [dict(self.row('a', status='ACTV'), list_price=200000, dom=10),
+                  dict(self.row('b', status='NEW'), list_price=400000, dom=30)]
+        contingent = dict(self.row('c', status=status), list_price=900000, dom=900)
+        for inventory, count, price, dom in ((active + [contingent], 2, 300000, 20),
+                                             ([contingent], 0, None, None)):
+            with self.subTest(active_count=count):
+                buckets, _ = report.classify({'inventory': inventory}, self.settings, date(2026, 10, 11))
+                result = report.summarize(self.settings['communities'][0], buckets['carillon'], date(2026, 10, 1))
+                self.assertEqual(result['pending_contingent_fin_listings'], 1)
+                self.assertEqual(result['active_listings'], count)
+                self.assertEqual(result['median_active_list_price'], price)
+                self.assertEqual(result['average_active_dom'], dom)
 
     def test_duplicate_unknown_status_and_missing_price_stop(self):
         for rows in ([self.row(), self.row()], [self.row(status="UNKNOWN")],

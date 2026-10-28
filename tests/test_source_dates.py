@@ -48,6 +48,27 @@ class SourceDateTests(unittest.TestCase):
                              {k: v for k, v in before[name].items() if k != 'inventory_updated'})
         self.assertEqual(hashes, {p: engine.file_hash(p) for p in files})
 
+    def test_daily_ctgo_changes_pending_only(self):
+        self.check_daily_contingency('CTGO')
+
+    def check_daily_contingency(self, status):
+        before = self.public()
+        from test_market_report import ReportingTests
+        contingent = ReportingTests().row('contingency-regression', status=status)
+        contingent.update(list_price=9000000, dom=900)
+        real_load = engine.load_rows
+        def with_contingency(path, columns):
+            rows, headers = real_load(path, columns)
+            return rows + [contingent], headers
+        with patch.object(engine, 'load_rows', side_effect=with_contingency):
+            inventory_update.run_inventory_update(self.root, date(2026, 10, 11))
+        for name, row in self.public().items():
+            expected = dict(before[name])
+            expected['inventory_updated'] = '2026-10-11'
+            if name == 'carillon.json':
+                expected['pending_contingent_fin_listings'] += 1
+            self.assertEqual(row, expected)
+
     def test_monthly_reused_inventory_preserves_refresh_date(self):
         engine.run(self.inputs, self.output, self.config, date(2026, 11, 1))
         for row in self.public().values():

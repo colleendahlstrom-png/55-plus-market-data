@@ -112,7 +112,7 @@ Before calculating any results, the program checks every qualifying closed sale'
 These rules were confirmed before the initial reports were generated:
 
 - Active: `ACTV`, `NEW`, `PCHG`.
-- Pending / contingent / FIN combined: `A/I`, `PEND`, `HC24`, `HC48`, `HS48`, `FIN`, `SS`.
+- Pending / contingent / FIN combined: `A/I`, `PEND`, `HC24`, `HC48`, `HS48`, `CTGO`, `FIN`, `SS`. `CTGO` means Contingent Other and is excluded from active counts, median active list price and average active DOM.
 - Closed: `CLSD`, with a closing date inside the reporting window.
 - DOM: use `MT`, including valid zero-day observations.
 - Match subdivision **and** city exactly after ignoring capitalization and extra spaces. No partial-name or fuzzy matching is used.

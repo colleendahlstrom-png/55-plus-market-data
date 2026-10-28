@@ -23,7 +23,7 @@
   },
   "statuses": {
     "active": ["ACTV", "NEW", "PCHG"],
-    "pending": ["A/I", "PEND", "HC24", "HC48", "HS48", "FIN", "SS"],
+    "pending": ["A/I", "PEND", "HC24", "HC48", "HS48", "CTGO", "FIN", "SS"],
     "closed": ["CLSD"]
   },
   "communities": [
