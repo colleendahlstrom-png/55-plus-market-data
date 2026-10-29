@@ -1,0 +1,110 @@
+{
+  "community": "Liberty Green",
+  "city": "Bolingbrook",
+  "state": "Illinois",
+  "report_date": "2026-10-01",
+  "closed_period_start": "2025-10-01",
+  "closed_period_end": "2026-09-30",
+  "active_listings": 0,
+  "median_active_list_price": null,
+  "average_active_dom": null,
+  "pending_contingent_fin_listings": 0,
+  "closed_sales_12_months": 5,
+  "median_sold_price": 465000.0,
+  "aggregate_sale_to_list_percentage": 97.0564,
+  "median_closed_dom": 9.0,
+  "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales.",
+  "latest_complete_month": "2026-09",
+  "latest_month_closed_sales": 1,
+  "latest_month_median_sold_price": 680000.0,
+  "latest_month_sale_to_list_percentage": 100.0,
+  "latest_month_median_closed_dom": 7.0,
+  "monthly_history": [
+    {
+      "month": "2025-10",
+      "closed_sales": 2,
+      "median_sold_price": 492500.0,
+      "sale_to_original_list_percentage": 94.7115,
+      "median_closed_dom": 91.0
+    },
+    {
+      "month": "2025-11",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2025-12",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-01",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-02",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-03",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-04",
+      "closed_sales": 1,
+      "median_sold_price": 422400.0,
+      "sale_to_original_list_percentage": 96.0218,
+      "median_closed_dom": 173.0
+    },
+    {
+      "month": "2026-05",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-06",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-07",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-08",
+      "closed_sales": 1,
+      "median_sold_price": 435000.0,
+      "sale_to_original_list_percentage": 99.0888,
+      "median_closed_dom": 9.0
+    },
+    {
+      "month": "2026-09",
+      "closed_sales": 1,
+      "median_sold_price": 680000.0,
+      "sale_to_original_list_percentage": 100.0,
+      "median_closed_dom": 7.0
+    }
+  ],
+  "inventory_updated": "2026-10-29",
+  "closed_sales_through": "2026-09-30"
+}

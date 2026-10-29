@@ -1,0 +1,110 @@
+{
+  "community": "Ashwood Crossing",
+  "city": "Naperville",
+  "state": "Illinois",
+  "report_date": "2026-10-01",
+  "closed_period_start": "2025-10-01",
+  "closed_period_end": "2026-09-30",
+  "active_listings": 0,
+  "median_active_list_price": null,
+  "average_active_dom": null,
+  "pending_contingent_fin_listings": 0,
+  "closed_sales_12_months": 2,
+  "median_sold_price": 557500.0,
+  "aggregate_sale_to_list_percentage": 99.1199,
+  "median_closed_dom": 7.0,
+  "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales.",
+  "latest_complete_month": "2026-09",
+  "latest_month_closed_sales": 1,
+  "latest_month_median_sold_price": 655000.0,
+  "latest_month_sale_to_list_percentage": 100.0153,
+  "latest_month_median_closed_dom": 3.0,
+  "monthly_history": [
+    {
+      "month": "2025-10",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2025-11",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2025-12",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-01",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-02",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-03",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-04",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-05",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-06",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-07",
+      "closed_sales": 0,
+      "median_sold_price": null,
+      "sale_to_original_list_percentage": null,
+      "median_closed_dom": null
+    },
+    {
+      "month": "2026-08",
+      "closed_sales": 1,
+      "median_sold_price": 460000.0,
+      "sale_to_original_list_percentage": 97.8723,
+      "median_closed_dom": 11.0
+    },
+    {
+      "month": "2026-09",
+      "closed_sales": 1,
+      "median_sold_price": 655000.0,
+      "sale_to_original_list_percentage": 100.0153,
+      "median_closed_dom": 3.0
+    }
+  ],
+  "inventory_updated": "2026-10-29",
+  "closed_sales_through": "2026-09-30"
+}
