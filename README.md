@@ -1,6 +1,6 @@
 # 55+ Community Market Reports
 
-This system reads your two MRED Excel exports and creates a combined Excel summary and a separate JSON report for each of seven communities. **It never changes the original exports.** Every successful run publishes the current reports in `Output` and saves a dated archive with copies of the exact source exports used.
+This system reads your two MRED Excel exports and creates a combined Excel summary and a separate JSON report for each of ten communities. **It never changes the original exports.** Every successful run publishes the current reports in `Output` and saves a dated archive with copies of the exact source exports used.
 
 ## Each time you receive new exports
 
@@ -8,7 +8,7 @@ This system reads your two MRED Excel exports and creates a combined Excel summa
 2. Put the two new `.xlsx` exports in `Input`, using these exact names:
    - `MRED MLS Active Pending Data.xlsx`
    - `MRED Closed Data - Past 12 Mths.xlsx`
-3. Include the columns listed below, including **Orig List Pr** in the Closed Sales export, and make sure the MLS searches cover all seven communities. The closed export must cover the full reporting period. If using OneDrive, make sure both files are downloaded locally.
+3. Include the columns listed below, including **Orig List Pr** in the Closed Sales export, and make sure the MLS searches cover all ten communities. The closed export must cover the full reporting period. If using OneDrive, make sure both files are downloaded locally.
 4. Close both exports in Excel. Double-click **Run Reports.cmd** in the main folder.
 5. Enter the report date as `YYYY-MM-01` (the first day of the month). Press Enter only when today is the first of the month. Other dates are rejected before files are written.
 6. Open **Output/market_summary.xlsx**. The completion message shows the report date, communities processed, qualifying closed sales analyzed, archive location and whether validation warnings occurred. Check `listing_review.csv` for unexpected exclusions.
@@ -22,7 +22,7 @@ Active and pending counts reflect the snapshot in your inventory export. Changin
 ```text
 Output/
   market_summary.xlsx
-  communities/                 # Seven current community JSON files
+  communities/                 # Ten current community JSON files
   audit/communities/           # Full private reports, including MLS IDs and audit totals
   listing_review.csv
   run_info.json
@@ -46,9 +46,9 @@ Archive/
   _validation_warnings/        # Warning files for unsuccessful validation
 ```
 
-The Excel file has one summary table with all seven communities and all eight requested metrics, plus a Definitions worksheet. It is a finished snapshot. Editing it does not update the JSON files; rerun the program with new exports to update the results.
+The Excel file has one summary table with all ten communities and all eight requested metrics, plus a Definitions worksheet. It is a finished snapshot. Editing it does not update the JSON files; rerun the program with new exports to update the results.
 
-Only **Output/communities/*.json** is intended for public GitHub/website publication. Each of the seven files contains exactly these 23 fields: `community`, `city`, `state`, `report_date`, `closed_period_start`, `closed_period_end`, `active_listings`, `median_active_list_price`, `average_active_dom`, `pending_contingent_fin_listings`, `closed_sales_12_months`, `median_sold_price`, `aggregate_sale_to_list_percentage`, `median_closed_dom`, `sale_to_list_basis`, `latest_complete_month`, `latest_month_closed_sales`, `latest_month_median_sold_price`, `latest_month_sale_to_list_percentage`, `latest_month_median_closed_dom`, `monthly_history`, `inventory_updated`, and `closed_sales_through`.
+Only **Output/communities/*.json** is intended for public GitHub/website publication. Each of the ten files contains exactly these 23 fields: `community`, `city`, `state`, `report_date`, `closed_period_start`, `closed_period_end`, `active_listings`, `median_active_list_price`, `average_active_dom`, `pending_contingent_fin_listings`, `closed_sales_12_months`, `median_sold_price`, `aggregate_sale_to_list_percentage`, `median_closed_dom`, `sale_to_list_basis`, `latest_complete_month`, `latest_month_closed_sales`, `latest_month_median_sold_price`, `latest_month_sale_to_list_percentage`, `latest_month_median_closed_dom`, `monthly_history`, `inventory_updated`, and `closed_sales_through`.
 
 The five latest-month fields describe the complete calendar month immediately before the report date. For October 1, 2026, `latest_complete_month` is `2026-09`, covering September 1 through September 30. January reports use December of the previous year; February follows the actual calendar, including leap day where applicable.
 
@@ -58,7 +58,7 @@ Monthly additions are currently in the public and private community JSON. They d
 
 Public JSON excludes MLS identifiers, addresses, individual listing information, audit totals and validation details. An explicit field allowlist prevents new internal fields from appearing publicly. The full community records remain locally in **Output/audit/communities**, alongside the existing private listing review and run metadata. Future dated archives contain both public JSON and private audit copies. Existing historical archives are unchanged and may contain listing identifiers; they are not public publishing folders.
 
-Publish only the seven files inside `Output/communities`, not the entire Output or Archive folder. The project `.gitignore` excludes local source exports, archives and private outputs from ordinary Git staging; it does not remove anything that was already tracked or published.
+Publish only the ten files inside `Output/communities`, not the entire Output or Archive folder. The project `.gitignore` excludes local source exports, archives and private outputs from ordinary Git staging; it does not remove anything that was already tracked or published.
 
 Percentages are percentage points: `98.5` means **98.5%**. `null` means no qualifying observations. In Excel, that appears as `n.a.`; counts remain zero.
 
@@ -112,7 +112,7 @@ Before calculating any results, the program checks every qualifying closed sale'
 These rules were confirmed before the initial reports were generated:
 
 - Active: `ACTV`, `NEW`, `PCHG`.
-- Pending / contingent / FIN combined: `A/I`, `PEND`, `HC24`, `HC48`, `HS48`, `CTGO`, `FIN`, `SS`. `CTGO` means Contingent Other and is excluded from active counts, median active list price and average active DOM.
+- Pending / contingent / FIN combined: `A/I`, `PEND`, `HC24`, `HC48`, `HS24`, `HS48`, `HS72`, `CTGO`, `FIN`, `SS`. `CTGO` means Contingent Other. `HS24`, `HS72` and `CTGO` are excluded from active counts, median active list price and average active DOM.
 - Closed: `CLSD`, with a closing date inside the reporting window.
 - DOM: use `MT`, including valid zero-day observations.
 - Match subdivision **and** city exactly after ignoring capitalization and extra spaces. No partial-name or fuzzy matching is used.
@@ -182,11 +182,11 @@ Then double-click `Run Reports.cmd`. No Excel installation is required to genera
 
 Live publishing is **disabled** in `publishing.json` (`enabled` is `false`). Keep it disabled until you explicitly authorize activation. Normal double-click monthly reporting still works without GitHub installed or signed in. No GitHub requests are made while disabled. The existing October current-only refresh is not eligible for automatic monthly publication.
 
-When activated later, only these seven files from `Output/communities` can be sent to `colleendahlstrom-png/55-plus-market-data`, branch `main`, under `data/`: carillon.json, carillon-club.json, shorewood-glen.json, carillon-lakes.json, grand-haven.json, lincoln-prairie.json and lago-vista.json. The destination and filenames are fixed in the publisher. It never pushes the local project repository or uploads directories.
+When activated later, only these ten files from `Output/communities` can be sent to `colleendahlstrom-png/55-plus-market-data`, branch `main`, under `data/`: carillon.json, carillon-club.json, shorewood-glen.json, carillon-lakes.json, grand-haven.json, lincoln-prairie.json, lago-vista.json, teerling-lakes-landings.json, liberty-green.json and ashwood-crossing.json. The destination and filenames are fixed in the publisher. It never pushes the local project repository or uploads directories.
 
-The publisher runs only after the monthly report, dated archive and history update succeed. It validates the exact public field list, types, finite numeric values, community identities and reporting dates, rejects links and unexpected/missing files, and checks that the seven public summaries match the committed archive and history. Data validation warnings block live publication. These are publication checks; approved market calculations and local reporting rules are unchanged.
+The publisher runs only after the monthly report, dated archive and history update succeed. It validates the exact public field list, types, finite numeric values, community identities and reporting dates, rejects links and unexpected/missing files, and checks that the ten public summaries match the committed archive and history. Data validation warnings block live publication. These are publication checks; approved market calculations and local reporting rules are unchanged.
 
-Publication updates all seven files together in one commit using the existing remote tree, preserving every other repository file. The branch update is not forced. If GitHub reports a conflict, permission problem, expired authentication or network failure, the local report, archive and history remain saved. Identical remote files are reported as already up to date. If a final update times out, verify the repository before retrying because GitHub may have accepted the commit. Do not rerun the same monthly date to retry: duplicate-date protection remains in place. There is no automatic retry or standalone publishing command in this version.
+Publication updates all ten files together in one commit using the existing remote tree, preserving every other repository file. The branch update is not forced. If GitHub reports a conflict, permission problem, expired authentication or network failure, the local report, archive and history remain saved. Identical remote files are reported as already up to date. If a final update times out, verify the repository before retrying because GitHub may have accepted the commit. Do not rerun the same monthly date to retry: duplicate-date protection remains in place. There is no automatic retry or standalone publishing command in this version.
 
 Completion messages separately show Monthly report, Archive, History, JSON validation and GitHub publication status. A GitHub failure returns exit code 2 while explicitly identifying the successful local stages. Private publication logs are written to `Logs` with dates, statuses and a commit identifier when available. Credentials, JSON payloads and raw API responses are not logged. Logs are excluded from ordinary Git staging.
 
@@ -226,7 +226,7 @@ Public JSON has exactly 23 fields. `inventory_updated` records the inventory ref
 
 For the current October baseline these dates are 2026-10-06 and 2026-09-30. Adding them does not recalculate the current reports or change any existing values.
 
-For a daily refresh, replace only the Active/Pending export and double-click **Run Inventory.cmd**. Enter the inventory update date or press Enter for today. The command validates all seven JSON files and updates only their four inventory metrics and `inventory_updated`. It never reads the closed-sales export or changes the closed-sales dates, statistics, monthly history, report date, archives, or audit files. It does not publish to GitHub. Ask for a separate publication after reviewing the results. An update date older than the current inventory refresh is rejected.
+For a daily refresh, replace only the Active/Pending export and double-click **Run Inventory.cmd**. Enter the inventory update date or press Enter for today. The command validates all ten JSON files and updates only their four inventory metrics and `inventory_updated`. It never reads the closed-sales export or changes the closed-sales dates, statistics, monthly history, report date, archives, or audit files. It does not publish to GitHub. Ask for a separate publication after reviewing the results. An update date older than the current inventory refresh is rejected.
 
 For a monthly run, **Run Reports.cmd** also asks for the inventory source refresh date. Supply it when processing an export collected earlier. If left blank, the system preserves the existing date when the inventory export hash matches the previous monthly source; otherwise it uses today's processing date. It never derives the inventory date from the closed-sales cutoff. `closed_sales_through` is calculated automatically from the monthly report's final included day. Existing archive/history and GitHub publication protections remain in place.
 
@@ -238,3 +238,15 @@ py -3 market_report.py --as-of 2026-11-01 --inventory-date 2026-11-01
 ```
 
 Neither example is an instruction to rerun the protected October archive. All current audit files, archived records, and historical workbook rows remain untouched by the date-field migration. Future newly generated Definitions worksheets document the dates.
+
+## Expansion to ten communities
+
+The additional exact Subdivision + City pairs are Teerling Lakes Landings + New Lenox, Liberty Green + Bolingbrook, and Ashwood Crossing + Naperville. Capitalization and extra spaces are ignored; model names never identify communities.
+
+Daily inventory refreshes validate and update exactly ten approved current JSON files. Only active_listings, median_active_list_price, average_active_dom, pending_contingent_fin_listings and inventory_updated may change. Archive, recovery files, closed exports and audit records are not read by the daily workflow. All other JSON fields are preserved.
+
+The three initial additional JSONs use the October 1, 2026 reporting period and October 29 inventory snapshot. The original seven JSONs are preserved byte-for-byte. Existing Excel summaries, archives, history and audits are not regenerated for this expansion. Future successful monthly runs include all ten in their normal reports, archives and history. Current Input closed records differ from the protected October baseline for Shorewood Glen and Carillon Lakes; do not regenerate their saved October sold statistics from that export.
+
+Teerling Lakes Landings disclosure: Statistics reflect qualifying MLS records in the supplied reporting period. Builder inventory and direct sales not entered in MLS are not represented. MLS market time does not measure construction duration. New-construction pricing and listing practices may affect comparisons. No calculation adjustment is made.
+
+Publication remains disabled. Normal monthly archive/history completion gates and duplicate-date protection remain required. Recovery copies are never publication payloads; unexpected files in the public folder still block the normal publisher.

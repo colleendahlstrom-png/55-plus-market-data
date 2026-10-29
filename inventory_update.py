@@ -83,8 +83,8 @@ def run_inventory_update(root=engine.BASE, update_date=None):
         raise engine.ReportError('Inventory source must be an Excel file directly inside Input.')
     publisher.reject_link(source)
     configured = [c['slug'] + '.json' for c in settings['communities']]
-    if len(configured) != 7 or set(configured) != set(publisher.COMMUNITIES):
-        raise engine.ReportError('Daily inventory requires exactly the seven approved communities.')
+    if len(configured) != len(publisher.COMMUNITIES) or set(configured) != set(publisher.COMMUNITIES):
+        raise engine.ReportError('Daily inventory requires exactly the ten approved communities.')
     with _write_boundary(root, writable | {settings_path, source}, writable) as written:
         return _run_inventory_update(root, update_date, settings, source, written, writable)
 

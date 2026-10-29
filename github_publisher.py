@@ -21,6 +21,9 @@ COMMUNITIES = {
     'grand-haven.json': ('Grand Haven', 'Romeoville'),
     'lincoln-prairie.json': ('Lincoln Prairie', 'Aurora'),
     'lago-vista.json': ('Lago Vista', 'Lockport'),
+    'teerling-lakes-landings.json': ('Teerling Lakes Landings', 'New Lenox'),
+    'liberty-green.json': ('Liberty Green', 'Bolingbrook'),
+    'ashwood-crossing.json': ('Ashwood Crossing', 'Naperville'),
 }
 
 
@@ -59,7 +62,7 @@ def validate_public_json(project_root, output, metadata):
     folder = output / 'communities'
     reject_link(folder)
     if set(p.name for p in folder.iterdir()) != set(COMMUNITIES):
-        raise PublicationError('Expected exactly the seven approved public JSON files.')
+        raise PublicationError('Expected exactly the ten approved public JSON files.')
     payloads = {}
     for name in COMMUNITIES:
         path = folder / name
@@ -74,7 +77,7 @@ def validate_public_payloads(payloads, metadata):
     """Validate the exact public payload in memory, without filesystem access."""
     import market_report as engine
     if set(payloads) != set(COMMUNITIES):
-        raise PublicationError('Expected exactly the seven approved public JSON files.')
+        raise PublicationError('Expected exactly the ten approved public JSON files.')
     day = date.fromisoformat(metadata['report_date'])
     reports = {}
     counts = ('active_listings', 'pending_contingent_fin_listings', 'closed_sales_12_months', 'latest_month_closed_sales')
@@ -149,7 +152,7 @@ def validate_completion(project_root, output, metadata, payloads, reports):
                 raise PublicationError('Duplicate history record; publication blocked.')
             found[row[1]] = row
         if set(found) != {r['community'] for r in reports.values()}:
-            raise PublicationError('History does not contain all seven communities for this run.')
+            raise PublicationError('History does not contain all ten communities for this run.')
         for report in reports.values():
             expected = [report[field] for _, field in engine.HISTORY_COLUMNS][1:]
             actual = list(found[report['community']][1:])
@@ -206,7 +209,7 @@ class GitHubCLI:
 def publish_commit(client, payloads, report_date):
     """One tree/commit/reference update; never stage or push the workspace."""
     if set(payloads) != set(COMMUNITIES):
-        raise PublicationError('Only the seven approved filenames may publish.')
+        raise PublicationError('Only the ten approved filenames may publish.')
     client.authenticate()
     prefix = f'repos/{REPOSITORY}/git/'
     base = client.api('GET', prefix + 'ref/heads/main')['object']['sha']
@@ -224,7 +227,7 @@ def publish_commit(client, payloads, report_date):
     response = client.api('PATCH', prefix + 'refs/heads/main', {'sha': commit, 'force': False})
     if response.get('object', {}).get('sha') != commit:
         raise PublicationError('GitHub did not confirm the expected commit; verify remote state before retrying.')
-    return {'status': 'successful', 'message': 'Seven public JSON files published in one commit.', 'commit': commit}
+    return {'status': 'successful', 'message': 'Ten public JSON files published in one commit.', 'commit': commit}
 
 
 def after_monthly(project_root, output, metadata, config_path=None, client_factory=GitHubCLI):

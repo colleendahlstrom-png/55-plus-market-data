@@ -41,7 +41,7 @@ monthly statistics. Preserve all existing fields and history columns.
 
 GitHub publishing remains disabled in publishing.json until the user explicitly
 authorizes activation. Never enable it merely to test. Destination is fixed to
-colleendahlstrom-png/55-plus-market-data, main, data/, with only the seven named
+colleendahlstrom-png/55-plus-market-data, main, data/, with only the ten named
 public JSON files as payloads. Run only after successful monthly/archive/history
 completion and public JSON validation. All publishing tests must mock GitHub.
 Publication failure must never undo successful local outputs. Use GitHub CLI

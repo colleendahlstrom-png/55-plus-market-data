@@ -44,11 +44,17 @@ class ReportingTests(unittest.TestCase):
                  self.row("d", "ACTV", "Carillon", "Aurora"),
                  self.row("e", "ACTV", "Shorewood Glen Del Webb", "Shorewood")]
         buckets, review = report.classify({"inventory": rows}, self.settings, date(2026, 10, 1))
-        self.assertEqual(len(buckets["carillon"]["pending"]), 8)
+        self.assertEqual(len(buckets["carillon"]["pending"]), 10)
         self.assertEqual(len(buckets["carillon"]["active"]), 2)
         self.assertEqual(len(buckets["carillon-club"]["active"]), 1)
         self.assertEqual(len(buckets["shorewood-glen"]["active"]), 1)
         self.assertEqual(sum(r["disposition"] != "included" for r in review), 1)
+
+    def test_hs72_counts_only_as_pending_not_active_metrics(self):
+        self.check_contingency_metrics('HS72')
+
+    def test_hs24_counts_only_as_pending_not_active_metrics(self):
+        self.check_contingency_metrics('HS24')
 
     def test_ctgo_counts_only_as_pending_not_active_metrics(self):
         self.check_contingency_metrics('CTGO')
@@ -68,6 +74,31 @@ class ReportingTests(unittest.TestCase):
                 self.assertEqual(result['active_listings'], count)
                 self.assertEqual(result['median_active_list_price'], price)
                 self.assertEqual(result['average_active_dom'], dom)
+
+    def test_three_new_communities_exact_normalized_matches(self):
+        targets = [('Teerling Lakes Landings', 'New Lenox'), ('Liberty Green', 'Bolingbrook'), ('Ashwood Crossing', 'Naperville')]
+        for name, city in targets:
+            with self.subTest(community=name):
+                slug = name.lower().replace(' ', '-')
+                rows = [self.row('good', 'ACTV', '  ' + name.upper() + '  ', city.upper()),
+                        self.row('wrong-city', 'ACTV', name, 'Naperville' if city != 'Naperville' else 'Bolingbrook'),
+                        self.row('partial', 'ACTV', name + ' Estates', city),
+                        self.row('model', 'ACTV', 'Shorewood Glen Del Webb', 'Shorewood')]
+                rows[-1]['model'] = 'Liberty'
+                buckets, _ = report.classify({'inventory': rows}, self.settings, date(2026, 10, 1))
+                self.assertEqual([r['mls'] for r in buckets[slug]['active']], ['good'])
+                self.assertEqual(len(buckets['shorewood-glen']['active']), 1)
+
+    def test_expansion_preserves_existing_seven_calculations(self):
+        import copy
+        original = copy.deepcopy(self.settings)
+        original['communities'] = original['communities'][:7]
+        rows = [self.row(str(i), 'ACTV', c['subdivisions'][0], c['city']) for i,c in enumerate(self.settings['communities'])]
+        old, _ = report.classify({'inventory': copy.deepcopy(rows)}, original, date(2026, 10, 1))
+        new, _ = report.classify({'inventory': copy.deepcopy(rows)}, self.settings, date(2026, 10, 1))
+        for c in original['communities']:
+            self.assertEqual(report.summarize(c, old[c['slug']], date(2026, 10, 1)),
+                             report.summarize(c, new[c['slug']], date(2026, 10, 1)))
 
     def test_duplicate_unknown_status_and_missing_price_stop(self):
         for rows in ([self.row(), self.row()], [self.row(status="UNKNOWN")],

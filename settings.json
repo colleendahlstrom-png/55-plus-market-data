@@ -22,17 +22,107 @@
     "original_list_price": "Orig List Pr"
   },
   "statuses": {
-    "active": ["ACTV", "NEW", "PCHG"],
-    "pending": ["A/I", "PEND", "HC24", "HC48", "HS48", "CTGO", "FIN", "SS"],
-    "closed": ["CLSD"]
+    "active": [
+      "ACTV",
+      "NEW",
+      "PCHG"
+    ],
+    "pending": [
+      "A/I",
+      "PEND",
+      "HC24",
+      "HC48",
+      "HS24",
+      "HS48",
+      "HS72",
+      "CTGO",
+      "FIN",
+      "SS"
+    ],
+    "closed": [
+      "CLSD"
+    ]
   },
   "communities": [
-    {"name": "Carillon", "slug": "carillon", "city": "Plainfield", "subdivisions": ["Carillon"]},
-    {"name": "Carillon Club", "slug": "carillon-club", "city": "Naperville", "subdivisions": ["Carillon Club"]},
-    {"name": "Shorewood Glen", "slug": "shorewood-glen", "city": "Shorewood", "subdivisions": ["Shorewood Glen Del Webb"]},
-    {"name": "Carillon Lakes", "slug": "carillon-lakes", "city": "Crest Hill", "subdivisions": ["Carillon Lakes"]},
-    {"name": "Grand Haven", "slug": "grand-haven", "city": "Romeoville", "subdivisions": ["Grand Haven"]},
-    {"name": "Lincoln Prairie", "slug": "lincoln-prairie", "city": "Aurora", "subdivisions": ["Lincoln Prairie"]},
-    {"name": "Lago Vista", "slug": "lago-vista", "city": "Lockport", "subdivisions": ["Lago Vista"]}
+    {
+      "name": "Carillon",
+      "slug": "carillon",
+      "city": "Plainfield",
+      "subdivisions": [
+        "Carillon"
+      ]
+    },
+    {
+      "name": "Carillon Club",
+      "slug": "carillon-club",
+      "city": "Naperville",
+      "subdivisions": [
+        "Carillon Club"
+      ]
+    },
+    {
+      "name": "Shorewood Glen",
+      "slug": "shorewood-glen",
+      "city": "Shorewood",
+      "subdivisions": [
+        "Shorewood Glen Del Webb"
+      ]
+    },
+    {
+      "name": "Carillon Lakes",
+      "slug": "carillon-lakes",
+      "city": "Crest Hill",
+      "subdivisions": [
+        "Carillon Lakes"
+      ]
+    },
+    {
+      "name": "Grand Haven",
+      "slug": "grand-haven",
+      "city": "Romeoville",
+      "subdivisions": [
+        "Grand Haven"
+      ]
+    },
+    {
+      "name": "Lincoln Prairie",
+      "slug": "lincoln-prairie",
+      "city": "Aurora",
+      "subdivisions": [
+        "Lincoln Prairie"
+      ]
+    },
+    {
+      "name": "Lago Vista",
+      "slug": "lago-vista",
+      "city": "Lockport",
+      "subdivisions": [
+        "Lago Vista"
+      ]
+    },
+    {
+      "name": "Teerling Lakes Landings",
+      "slug": "teerling-lakes-landings",
+      "city": "New Lenox",
+      "subdivisions": [
+        "Teerling Lakes Landings"
+      ]
+    },
+    {
+      "name": "Liberty Green",
+      "slug": "liberty-green",
+      "city": "Bolingbrook",
+      "subdivisions": [
+        "Liberty Green"
+      ]
+    },
+    {
+      "name": "Ashwood Crossing",
+      "slug": "ashwood-crossing",
+      "city": "Naperville",
+      "subdivisions": [
+        "Ashwood Crossing"
+      ]
+    }
   ]
 }

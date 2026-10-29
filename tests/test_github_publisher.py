@@ -90,7 +90,7 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(result['json_validation'], 'successful')
         factory.assert_not_called()
 
-    def test_one_commit_only_seven_allowlisted_files(self):
+    def test_one_commit_only_ten_allowlisted_files(self):
         before = self.snapshot()
         client = FakeGitHub()
         result = self.execute(client)

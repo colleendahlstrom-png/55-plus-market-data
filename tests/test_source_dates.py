@@ -48,6 +48,12 @@ class SourceDateTests(unittest.TestCase):
                              {k: v for k, v in before[name].items() if k != 'inventory_updated'})
         self.assertEqual(hashes, {p: engine.file_hash(p) for p in files})
 
+    def test_daily_hs72_changes_pending_only(self):
+        self.check_daily_contingency('HS72')
+
+    def test_daily_hs24_changes_pending_only(self):
+        self.check_daily_contingency('HS24')
+
     def test_daily_ctgo_changes_pending_only(self):
         self.check_daily_contingency('CTGO')
 
@@ -113,6 +119,24 @@ class SourceDateTests(unittest.TestCase):
             with self.assertRaises(publisher.PublicationError):
                 publisher.validate_public_json(self.root, self.output, self.metadata)
 
+    def test_daily_updates_all_ten_with_only_five_fields(self):
+        before = self.public()
+        self.assertEqual(len(before), 10)
+        self.assertEqual(set(before), set(publisher.COMMUNITIES))
+        from test_market_report import ReportingTests
+        helper = ReportingTests()
+        rows = []
+        for i,c in enumerate(self.settings['communities']):
+            rows.append(dict(helper.row('new-active'+str(i), 'ACTV', c['subdivisions'][0], c['city']), list_price=456789, dom=12))
+            rows.append(helper.row('new-pending'+str(i), 'CTGO', c['subdivisions'][0], c['city']))
+        with patch.object(engine, 'load_rows', return_value=(rows, {})):
+            inventory_update.run_inventory_update(self.root, date(2026, 10, 29))
+        for name,row in self.public().items():
+            self.assertEqual(len(row), 23)
+            self.assertEqual([row[k] for k in inventory_update.INVENTORY_FIELDS], [1,456789,12,1,'2026-10-29'])
+            self.assertEqual({k:v for k,v in row.items() if k not in inventory_update.INVENTORY_FIELDS},
+                             {k:v for k,v in before[name].items() if k not in inventory_update.INVENTORY_FIELDS})
+
     def test_daily_older_date_rejected_without_changes(self):
         before = self.public()
         with self.assertRaisesRegex(engine.ReportError, 'cannot precede'):
@@ -140,7 +164,7 @@ class SourceDateTests(unittest.TestCase):
             self.assertEqual({k: v for k, v in row.items() if k not in inventory_update.INVENTORY_FIELDS},
                              {k: v for k, v in before[name].items() if k not in inventory_update.INVENTORY_FIELDS})
 
-    def test_daily_blocks_writes_outside_seven_files(self):
+    def test_daily_blocks_writes_outside_ten_files(self):
         original_load = engine.load_rows
         targets = [self.root / 'Archive' / 'market_history.xlsx', self.inputs / self.settings['input_files']['closed'],
                    self.output / 'audit' / 'communities' / 'carillon.json', self.root / 'settings.json',
@@ -205,7 +229,7 @@ class SourceDateTests(unittest.TestCase):
         self.settings['communities'][0]['slug'] = '../../Archive/market_history'
         self.config.write_text(json.dumps(self.settings))
         before = self.public()
-        with self.assertRaisesRegex(engine.ReportError, 'seven approved'):
+        with self.assertRaisesRegex(engine.ReportError, 'ten approved'):
             inventory_update.run_inventory_update(self.root, date(2026, 10, 6))
         self.assertEqual(self.public(), before)
 
