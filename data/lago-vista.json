@@ -2,31 +2,24 @@
   "community": "Lago Vista",
   "city": "Lockport",
   "state": "Illinois",
-  "report_date": "2026-10-01",
-  "closed_period_start": "2025-10-01",
-  "closed_period_end": "2026-09-30",
+  "report_date": "2026-11-01",
+  "closed_period_start": "2025-11-01",
+  "closed_period_end": "2026-10-31",
   "active_listings": 4,
   "median_active_list_price": 419950.0,
   "average_active_dom": 136.0,
   "pending_contingent_fin_listings": 2,
   "closed_sales_12_months": 22,
-  "median_sold_price": 361750.0,
-  "aggregate_sale_to_list_percentage": 96.7634,
+  "median_sold_price": 371750.0,
+  "aggregate_sale_to_list_percentage": 96.8087,
   "median_closed_dom": 31.0,
   "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales.",
-  "latest_complete_month": "2026-09",
+  "latest_complete_month": "2026-10",
   "latest_month_closed_sales": 1,
-  "latest_month_median_sold_price": 340000.0,
-  "latest_month_sale_to_list_percentage": 97.1429,
-  "latest_month_median_closed_dom": 377.0,
+  "latest_month_median_sold_price": 410000.0,
+  "latest_month_sale_to_list_percentage": 96.4706,
+  "latest_month_median_closed_dom": 56.0,
   "monthly_history": [
-    {
-      "month": "2025-10",
-      "closed_sales": 1,
-      "median_sold_price": 348000.0,
-      "sale_to_original_list_percentage": 95.3425,
-      "median_closed_dom": 48.0
-    },
     {
       "month": "2025-11",
       "closed_sales": 1,
@@ -103,8 +96,15 @@
       "median_sold_price": 340000.0,
       "sale_to_original_list_percentage": 97.1429,
       "median_closed_dom": 377.0
+    },
+    {
+      "month": "2026-10",
+      "closed_sales": 1,
+      "median_sold_price": 410000.0,
+      "sale_to_original_list_percentage": 96.4706,
+      "median_closed_dom": 56.0
     }
   ],
   "inventory_updated": "2026-11-01",
-  "closed_sales_through": "2026-09-30"
+  "closed_sales_through": "2026-10-31"
 }

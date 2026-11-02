@@ -2,31 +2,24 @@
   "community": "Shorewood Glen",
   "city": "Shorewood",
   "state": "Illinois",
-  "report_date": "2026-10-01",
-  "closed_period_start": "2025-10-01",
-  "closed_period_end": "2026-09-30",
+  "report_date": "2026-11-01",
+  "closed_period_start": "2025-11-01",
+  "closed_period_end": "2026-10-31",
   "active_listings": 1,
   "median_active_list_price": 415000.0,
   "average_active_dom": 40.0,
   "pending_contingent_fin_listings": 4,
   "closed_sales_12_months": 21,
-  "median_sold_price": 365000.0,
-  "aggregate_sale_to_list_percentage": 98.9005,
-  "median_closed_dom": 17.0,
+  "median_sold_price": 375000.0,
+  "aggregate_sale_to_list_percentage": 99.2443,
+  "median_closed_dom": 14.0,
   "sale_to_list_basis": "Total Sold Price divided by Total Original List Price for qualifying closed sales.",
-  "latest_complete_month": "2026-09",
-  "latest_month_closed_sales": 0,
-  "latest_month_median_sold_price": null,
-  "latest_month_sale_to_list_percentage": null,
-  "latest_month_median_closed_dom": null,
+  "latest_complete_month": "2026-10",
+  "latest_month_closed_sales": 3,
+  "latest_month_median_sold_price": 430000.0,
+  "latest_month_sale_to_list_percentage": 99.608,
+  "latest_month_median_closed_dom": 4.0,
   "monthly_history": [
-    {
-      "month": "2025-10",
-      "closed_sales": 3,
-      "median_sold_price": 372500.0,
-      "sale_to_original_list_percentage": 97.2801,
-      "median_closed_dom": 25.0
-    },
     {
       "month": "2025-11",
       "closed_sales": 0,
@@ -103,8 +96,15 @@
       "median_sold_price": null,
       "sale_to_original_list_percentage": null,
       "median_closed_dom": null
+    },
+    {
+      "month": "2026-10",
+      "closed_sales": 3,
+      "median_sold_price": 430000.0,
+      "sale_to_original_list_percentage": 99.608,
+      "median_closed_dom": 4.0
     }
   ],
   "inventory_updated": "2026-11-01",
-  "closed_sales_through": "2026-09-30"
+  "closed_sales_through": "2026-10-31"
 }
